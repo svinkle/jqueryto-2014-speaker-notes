@@ -1,0 +1,84 @@
+// Mixin'
+%clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin font-size($sizeValue) {
+    font-size: $sizeValue + px;
+    font-size: ($sizeValue / 16) + rem;
+}
+
+@function pxtoem($value, $base: 16) {
+    @return ($value / $base) + em;
+}
+
+// Stylin'
+body {
+    background: #333;
+    color: #fafafa;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    margin: 2em;
+}
+
+a {
+    color: LawnGreen;
+    text-decoration: none;
+
+    &:active,
+    &:focus,
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+h1 {
+    @include font-size(32);
+    color: Gold;
+    @media only screen and (min-width: 560px) {
+        @include font-size(64);
+    }
+}
+
+dt {
+    @include font-size(24);
+    margin: 2em 0 .5em 0;
+}
+
+dd {
+    @extend %clearfix;
+    margin: 0;
+    img {
+        border-radius: 100%;
+        float: left;
+        margin-right: 1em;
+    }
+    a {
+        @include font-size(20);
+    }
+    a[href*='twitter'] {
+        @include font-size(16);
+        color: DeepSkyBlue;
+        display: block;
+        margin-top: .5em;
+    }
+}
+
+.container {
+    margin: 0 auto;
+    max-width: pxtoem(600);
+}
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
